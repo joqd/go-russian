@@ -1,0 +1,156 @@
+{
+    "schemes": [
+        "http"
+    ],
+    "swagger": "2.0",
+    "info": {
+        "description": "Russian dictionary for Persian speakers.",
+        "title": "Ruskee",
+        "contact": {
+            "name": "Abolfazl Shahbazi",
+            "url": "https://github.com/joqd",
+            "email": "rodia2559@example.com"
+        },
+        "license": {
+            "name": "MIT License",
+            "url": "https://opensource.org/licenses/MIT"
+        },
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/v1/words/{id}": {
+            "get": {
+                "description": "Retrieve a word from the database using its ID",
+                "tags": [
+                    "words"
+                ],
+                "summary": "Get a word by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Word ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/wrapper.RetrievedWordWrapper"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/wrapper.ErrorInvalidObjectIdWrapper"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/wrapper.ErrorNotFoundWrapper"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/wrapper.ErrorInternalServerWrapper"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "response.RetrievedWord": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "example": "6835a2db5a859aff5197007a"
+                },
+                "accented": {
+                    "type": "string",
+                    "example": "весь"
+                },
+                "bare": {
+                    "type": "string",
+                    "example": "весь"
+                },
+                "level": {
+                    "type": "string",
+                    "example": "B1"
+                },
+                "type": {
+                    "type": "string",
+                    "example": "noun"
+                }
+            }
+        },
+        "wrapper.ErrorInternalServerWrapper": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "example": "internal server error"
+                },
+                "error_code": {
+                    "type": "integer",
+                    "example": 500
+                },
+                "ok": {
+                    "type": "boolean",
+                    "example": false
+                }
+            }
+        },
+        "wrapper.ErrorInvalidObjectIdWrapper": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "example": "invalid object id"
+                },
+                "error_code": {
+                    "type": "integer",
+                    "example": 400
+                },
+                "ok": {
+                    "type": "boolean",
+                    "example": false
+                }
+            }
+        },
+        "wrapper.ErrorNotFoundWrapper": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "example": "data not found"
+                },
+                "error_code": {
+                    "type": "integer",
+                    "example": 404
+                },
+                "ok": {
+                    "type": "boolean",
+                    "example": false
+                }
+            }
+        },
+        "wrapper.RetrievedWordWrapper": {
+            "type": "object",
+            "properties": {
+                "ok": {
+                    "type": "boolean",
+                    "example": true
+                },
+                "result": {
+                    "$ref": "#/definitions/response.RetrievedWord"
+                }
+            }
+        }
+    }
+}

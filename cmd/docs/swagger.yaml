@@ -1,0 +1,107 @@
+definitions:
+  response.RetrievedWord:
+    properties:
+      _id:
+        example: 6835a2db5a859aff5197007a
+        type: string
+      accented:
+        example: весь
+        type: string
+      bare:
+        example: весь
+        type: string
+      level:
+        example: B1
+        type: string
+      type:
+        example: noun
+        type: string
+    type: object
+  wrapper.ErrorInternalServerWrapper:
+    properties:
+      description:
+        example: internal server error
+        type: string
+      error_code:
+        example: 500
+        type: integer
+      ok:
+        example: false
+        type: boolean
+    type: object
+  wrapper.ErrorInvalidObjectIdWrapper:
+    properties:
+      description:
+        example: invalid object id
+        type: string
+      error_code:
+        example: 400
+        type: integer
+      ok:
+        example: false
+        type: boolean
+    type: object
+  wrapper.ErrorNotFoundWrapper:
+    properties:
+      description:
+        example: data not found
+        type: string
+      error_code:
+        example: 404
+        type: integer
+      ok:
+        example: false
+        type: boolean
+    type: object
+  wrapper.RetrievedWordWrapper:
+    properties:
+      ok:
+        example: true
+        type: boolean
+      result:
+        $ref: '#/definitions/response.RetrievedWord'
+    type: object
+info:
+  contact:
+    email: rodia2559@example.com
+    name: Abolfazl Shahbazi
+    url: https://github.com/joqd
+  description: Russian dictionary for Persian speakers.
+  license:
+    name: MIT License
+    url: https://opensource.org/licenses/MIT
+  title: Ruskee
+  version: "1.0"
+paths:
+  /api/v1/words/{id}:
+    get:
+      description: Retrieve a word from the database using its ID
+      parameters:
+      - description: Word ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/wrapper.RetrievedWordWrapper'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/wrapper.ErrorInvalidObjectIdWrapper'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/wrapper.ErrorNotFoundWrapper'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/wrapper.ErrorInternalServerWrapper'
+      summary: Get a word by ID
+      tags:
+      - words
+schemes:
+- http
+swagger: "2.0"

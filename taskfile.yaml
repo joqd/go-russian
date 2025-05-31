@@ -1,0 +1,23 @@
+version: '3'
+
+dotenv: ['.env']
+
+tasks:
+  dev:
+    desc: Run the app
+    # deps: [docs]
+    cmds:
+      - go run ./cmd/app/main.go
+    silent: true
+
+  fmt:
+    desc: Format code using goimports
+    cmds:
+      - goimports -w .
+    silent: true
+
+  docs:
+    desc: Regenerate docs using swagger
+    cmds:
+      - swag init -g ./cmd/app/main.go -o cmd/docs
+    silent: true
