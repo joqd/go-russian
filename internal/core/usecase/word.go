@@ -36,3 +36,14 @@ func (w *wordUsecase) GetByID(ctx context.Context, id string) (*domain.Word, err
 
 	return word, nil
 }
+
+func (w *wordUsecase) Create(ctx context.Context, word *domain.Word) (*domain.Word, error) {
+	oid, err := w.persistent.Create(ctx, word)
+	if err != nil {
+		return nil, err
+	}
+
+	word.ID = oid
+
+	return word, nil
+}

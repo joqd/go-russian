@@ -18,6 +18,58 @@
         "version": "1.0"
     },
     "paths": {
+        "/api/v1/words": {
+            "post": {
+                "description": "Create a word with payload",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "words"
+                ],
+                "summary": "Create a word",
+                "parameters": [
+                    {
+                        "description": "Word formation data",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.CreateWord"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/wrapper.RetrievedWordWrapper"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/wrapper.ErrorBadRequestWrapper"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/wrapper.ErrorUnprocessableEntityWrapper"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/wrapper.ErrorInternalServerWrapper"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/words/{id}": {
             "get": {
                 "description": "Retrieve a word from the database using its ID",
@@ -64,6 +116,52 @@
         }
     },
     "definitions": {
+        "request.CreateWord": {
+            "type": "object",
+            "required": [
+                "accented",
+                "bare"
+            ],
+            "properties": {
+                "accented": {
+                    "type": "string",
+                    "minLength": 1,
+                    "example": "весь"
+                },
+                "bare": {
+                    "type": "string",
+                    "minLength": 1,
+                    "example": "весь"
+                },
+                "disable": {
+                    "type": "boolean",
+                    "example": false
+                },
+                "level": {
+                    "type": "string",
+                    "enum": [
+                        "A1",
+                        "A2",
+                        "B1",
+                        "B2",
+                        "C1",
+                        "C2"
+                    ],
+                    "example": "B1"
+                },
+                "type": {
+                    "type": "string",
+                    "enum": [
+                        "adjective",
+                        "noun",
+                        "verb",
+                        "adverb",
+                        "other"
+                    ],
+                    "example": "noun"
+                }
+            }
+        },
         "response.RetrievedWord": {
             "type": "object",
             "properties": {
@@ -86,6 +184,23 @@
                 "type": {
                     "type": "string",
                     "example": "noun"
+                }
+            }
+        },
+        "wrapper.ErrorBadRequestWrapper": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "example": "bad request"
+                },
+                "error_code": {
+                    "type": "integer",
+                    "example": 400
+                },
+                "ok": {
+                    "type": "boolean",
+                    "example": false
                 }
             }
         },
@@ -133,6 +248,23 @@
                 "error_code": {
                     "type": "integer",
                     "example": 404
+                },
+                "ok": {
+                    "type": "boolean",
+                    "example": false
+                }
+            }
+        },
+        "wrapper.ErrorUnprocessableEntityWrapper": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "example": "unprocessable entity"
+                },
+                "error_code": {
+                    "type": "integer",
+                    "example": 422
                 },
                 "ok": {
                     "type": "boolean",

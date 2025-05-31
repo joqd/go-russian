@@ -1,4 +1,40 @@
 definitions:
+  request.CreateWord:
+    properties:
+      accented:
+        example: весь
+        minLength: 1
+        type: string
+      bare:
+        example: весь
+        minLength: 1
+        type: string
+      disable:
+        example: false
+        type: boolean
+      level:
+        enum:
+        - A1
+        - A2
+        - B1
+        - B2
+        - C1
+        - C2
+        example: B1
+        type: string
+      type:
+        enum:
+        - adjective
+        - noun
+        - verb
+        - adverb
+        - other
+        example: noun
+        type: string
+    required:
+    - accented
+    - bare
+    type: object
   response.RetrievedWord:
     properties:
       _id:
@@ -16,6 +52,18 @@ definitions:
       type:
         example: noun
         type: string
+    type: object
+  wrapper.ErrorBadRequestWrapper:
+    properties:
+      description:
+        example: bad request
+        type: string
+      error_code:
+        example: 400
+        type: integer
+      ok:
+        example: false
+        type: boolean
     type: object
   wrapper.ErrorInternalServerWrapper:
     properties:
@@ -53,6 +101,18 @@ definitions:
         example: false
         type: boolean
     type: object
+  wrapper.ErrorUnprocessableEntityWrapper:
+    properties:
+      description:
+        example: unprocessable entity
+        type: string
+      error_code:
+        example: 422
+        type: integer
+      ok:
+        example: false
+        type: boolean
+    type: object
   wrapper.RetrievedWordWrapper:
     properties:
       ok:
@@ -73,6 +133,40 @@ info:
   title: Ruskee
   version: "1.0"
 paths:
+  /api/v1/words:
+    post:
+      consumes:
+      - application/json
+      description: Create a word with payload
+      parameters:
+      - description: Word formation data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.CreateWord'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/wrapper.RetrievedWordWrapper'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/wrapper.ErrorBadRequestWrapper'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/wrapper.ErrorUnprocessableEntityWrapper'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/wrapper.ErrorInternalServerWrapper'
+      summary: Create a word
+      tags:
+      - words
   /api/v1/words/{id}:
     get:
       description: Retrieve a word from the database using its ID

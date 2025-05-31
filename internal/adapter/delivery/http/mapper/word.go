@@ -1,6 +1,7 @@
 package mapper
 
 import (
+	"github.com/joqd/ruskee/internal/adapter/delivery/http/request"
 	"github.com/joqd/ruskee/internal/adapter/delivery/http/response"
 	"github.com/joqd/ruskee/internal/core/domain"
 )
@@ -13,4 +14,21 @@ func WordToRetrievedWord(word *domain.Word) *response.RetrievedWord {
 		Type:     word.Type,
 		Level:    word.Level,
 	}
+}
+
+func CreateWordToWord(createWord *request.CreateWord) *domain.Word {
+	word := &domain.Word{
+		Bare:     createWord.Bare,
+		Accented: createWord.Accented,
+		Type:     createWord.Type,
+		Level:    createWord.Level,
+	}
+
+	if createWord.Disable == nil {
+		word.Disable = false
+	} else {
+		word.Disable = *createWord.Disable
+	}
+
+	return word
 }

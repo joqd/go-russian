@@ -8,6 +8,7 @@ import (
 
 type WordPersistent interface {
 	GetByID(ctx context.Context, id string) (*domain.Word, error)
+	Create(ctx context.Context, word *domain.Word) (id string, err error)
 }
 
 type WordCache interface {
@@ -18,4 +19,5 @@ type WordCache interface {
 
 type WordUsecase interface {
 	GetByID(ctx context.Context, id string) (*domain.Word, error)
+	Create(ctx context.Context, word *domain.Word) (*domain.Word, error)
 }
