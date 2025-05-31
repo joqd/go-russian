@@ -5,7 +5,7 @@ import (
 	"github.com/joqd/ruskee/internal/core/domain"
 )
 
-func DomainWordToRetrievedWord(word *domain.Word) *response.RetrievedWord {
+func WordToRetrievedWord(word *domain.Word) *response.RetrievedWord {
 	return &response.RetrievedWord{
 		ID:       word.ID,
 		Bare:     word.Bare,

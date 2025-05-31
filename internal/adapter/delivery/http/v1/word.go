@@ -54,6 +54,6 @@ func (w *wordHTTP) GetByID(c *gin.Context) {
 		return
 	}
 
-	retrievedWord := mapper.DomainWordToRetrievedWord(word)
+	retrievedWord := mapper.WordToRetrievedWord(word)
 	response.SuccessResponse(c, http.StatusOK, retrievedWord)
 }
