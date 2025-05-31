@@ -6,6 +6,7 @@ import (
 
 	"github.com/go-playground/validator/v10"
 	"github.com/joqd/ruskee/internal/adapter/delivery/http/mapper"
+	"github.com/joqd/ruskee/internal/adapter/delivery/http/request"
 	"github.com/joqd/ruskee/internal/adapter/delivery/http/response"
 	_ "github.com/joqd/ruskee/internal/adapter/delivery/http/response/wrapper"
 	"github.com/joqd/ruskee/internal/core/domain"
@@ -28,7 +29,6 @@ func NewWordHandler(usecase port.WordUsecase, xlog port.Logger) *wordHandler {
 	}
 }
 
-// Retrieve godoc
 // @Summary      Get a word by ID
 // @Description  Retrieve a word from the database using its ID
 // @Tags         words
@@ -53,6 +53,41 @@ func (w *wordHandler) GetByID(c *gin.Context) {
 			return
 		}
 
+		response.ErrorResponse(c, http.StatusInternalServerError, response.DescInternalServerError)
+		return
+	}
+
+	retrievedWord := mapper.WordToRetrievedWord(word)
+	response.SuccessResponse(c, http.StatusOK, retrievedWord)
+}
+
+// @Summary      Create a word
+// @Description  Create a word with payload
+// @Tags         words
+// @Accept       json
+// @Produce      json
+// @Param        request  body  request.CreateWord  true  "Word formation data"
+// @Success      201  {object}  wrapper.RetrievedWordWrapper
+// @Failure      400  {object}  wrapper.ErrorBadRequestWrapper
+// @Failure      422  {object}  wrapper.ErrorUnprocessableEntityWrapper
+// @Failure      500  {object}  wrapper.ErrorInternalServerWrapper
+// @Router       /api/v1/words  [post]
+func (w *wordHandler) Create(c *gin.Context) {
+	var body request.CreateWord
+	if err := c.ShouldBind(&body); err != nil {
+		response.ErrorResponse(c, http.StatusBadRequest, response.DescBadRequest)
+		return
+	}
+
+	if err := w.validator.Struct(body); err != nil {
+		response.ErrorResponse(c, http.StatusUnprocessableEntity, response.UnprocessableEntity)
+		return
+	}
+
+	payload := mapper.CreateWordToWord(&body)
+
+	word, err := w.usecase.Create(c.Request.Context(), payload)
+	if err != nil {
 		response.ErrorResponse(c, http.StatusInternalServerError, response.DescInternalServerError)
 		return
 	}

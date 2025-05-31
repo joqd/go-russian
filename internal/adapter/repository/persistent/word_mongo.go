@@ -3,6 +3,7 @@ package persistent
 import (
 	"context"
 
+	"github.com/joqd/ruskee/internal/adapter/repository/mapper"
 	"github.com/joqd/ruskee/internal/adapter/repository/model"
 	"github.com/joqd/ruskee/internal/core/domain"
 	"github.com/joqd/ruskee/internal/core/port"
@@ -43,4 +44,22 @@ func (w *wordPersistent) GetByID(ctx context.Context, id string) (*domain.Word, 
 	}
 
 	return wordDocument.ToDomain(), nil
+}
+
+func (w *wordPersistent) Create(ctx context.Context, word *domain.Word) (id string, err error) {
+	wordPayload := mapper.WordToWordPayload(word)
+
+	result, err := w.collection.InsertOne(ctx, wordPayload)
+	if err != nil {
+		w.xlog.Error("insert mongo error, err=%v", err)
+		return "", err
+	}
+
+	oid, ok := result.InsertedID.(bson.ObjectID)
+	if !ok {
+		w.xlog.Error("get inserted id from mongo, err=%v", err)
+		return "", err
+	}
+
+	return oid.Hex(), nil
 }
