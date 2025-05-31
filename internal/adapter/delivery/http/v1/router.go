@@ -7,11 +7,11 @@ import (
 )
 
 func RegisterWordRouter(rg *gin.RouterGroup, usecase port.WordUsecase, xlog port.Logger) {
-	wordHTTP := NewWordHTTP(usecase, xlog)
+	wordHandler := NewWordHandler(usecase, xlog)
 
 	wordGroup := rg.Group("/words")
 
 	{
-		wordGroup.GET("/:id", wordHTTP.GetByID)
+		wordGroup.GET("/:id", wordHandler.GetByID)
 	}
 }

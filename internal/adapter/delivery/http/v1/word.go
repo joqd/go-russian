@@ -13,13 +13,13 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type wordHTTP struct {
+type wordHandler struct {
 	usecase port.WordUsecase
 	xlog    port.Logger
 }
 
-func NewWordHTTP(usecase port.WordUsecase, xlog port.Logger) *wordHTTP {
-	return &wordHTTP{
+func NewWordHandler(usecase port.WordUsecase, xlog port.Logger) *wordHandler {
+	return &wordHandler{
 		usecase: usecase,
 		xlog:    xlog,
 	}
@@ -35,7 +35,7 @@ func NewWordHTTP(usecase port.WordUsecase, xlog port.Logger) *wordHTTP {
 // @Failure      400  {object}  wrapper.ErrorInvalidObjectIdWrapper
 // @Failure      500  {object}  wrapper.ErrorInternalServerWrapper
 // @Router       /api/v1/words/{id} [get]
-func (w *wordHTTP) GetByID(c *gin.Context) {
+func (w *wordHandler) GetByID(c *gin.Context) {
 	id := c.Param("id")
 
 	word, err := w.usecase.GetByID(c.Request.Context(), id)
