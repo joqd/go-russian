@@ -4,6 +4,7 @@ import (
 	"errors"
 	"net/http"
 
+	"github.com/go-playground/validator/v10"
 	"github.com/joqd/ruskee/internal/adapter/delivery/http/mapper"
 	"github.com/joqd/ruskee/internal/adapter/delivery/http/response"
 	_ "github.com/joqd/ruskee/internal/adapter/delivery/http/response/wrapper"
@@ -14,14 +15,16 @@ import (
 )
 
 type wordHandler struct {
-	usecase port.WordUsecase
-	xlog    port.Logger
+	usecase   port.WordUsecase
+	xlog      port.Logger
+	validator *validator.Validate
 }
 
 func NewWordHandler(usecase port.WordUsecase, xlog port.Logger) *wordHandler {
 	return &wordHandler{
-		usecase: usecase,
-		xlog:    xlog,
+		usecase:   usecase,
+		xlog:      xlog,
+		validator: validator.New(validator.WithRequiredStructEnabled()),
 	}
 }
 

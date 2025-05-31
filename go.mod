@@ -5,6 +5,7 @@ go 1.24.2
 require (
 	github.com/caarlos0/env/v11 v11.3.1
 	github.com/gin-gonic/gin v1.10.1
+	github.com/go-playground/validator/v10 v10.26.0
 	github.com/redis/go-redis/v9 v9.9.0
 	github.com/rs/zerolog v1.34.0
 	github.com/swaggo/files v1.0.1
@@ -28,7 +29,6 @@ require (
 	github.com/go-openapi/swag v0.23.1 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
-	github.com/go-playground/validator/v10 v10.26.0 // indirect
 	github.com/goccy/go-json v0.10.5 // indirect
 	github.com/golang/snappy v1.0.0 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
