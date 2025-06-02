@@ -3,13 +3,13 @@ package main
 import (
 	"log"
 
-	"github.com/joqd/ruskee/internal/adapter/bootstrap"
-	"github.com/joqd/ruskee/internal/adapter/config"
+	"github.com/joqd/go-russian/internal/adapter/bootstrap"
+	"github.com/joqd/go-russian/internal/adapter/config"
 )
 
-// @title           Ruskee
+// @title           Go Russian
 // @version         1.0
-// @description     Russian dictionary for Persian speakers.
+// @description     Russian Dictionary & Learning Platform.
 // @contact.name    Abolfazl Shahbazi
 // @contact.url     https://github.com/joqd
 // @contact.email   rodia2559@example.com

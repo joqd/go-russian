@@ -1,7 +1,7 @@
 package v1
 
 import (
-	"github.com/joqd/ruskee/internal/core/port"
+	"github.com/joqd/go-russian/internal/core/port"
 
 	"github.com/gin-gonic/gin"
 )
