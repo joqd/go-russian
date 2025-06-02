@@ -1,4 +1,4 @@
-module github.com/joqd/ruskee
+module github.com/joqd/go-russian
 
 go 1.24.2
 

@@ -1,2 +1,2 @@
-# ruskee-api
-Russian dictionary for Persian speakers
+# go-russian
+Russian Dictionary & Learning Platform

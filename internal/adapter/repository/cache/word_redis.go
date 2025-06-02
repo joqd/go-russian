@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/joqd/ruskee/internal/core/domain"
-	"github.com/joqd/ruskee/internal/core/port"
-	"github.com/joqd/ruskee/pkg/redisdb"
+	"github.com/joqd/go-russian/internal/core/domain"
+	"github.com/joqd/go-russian/internal/core/port"
+	"github.com/joqd/go-russian/pkg/redisdb"
 
 	"github.com/redis/go-redis/v9"
 )

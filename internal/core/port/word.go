@@ -3,7 +3,7 @@ package port
 import (
 	"context"
 
-	"github.com/joqd/ruskee/internal/core/domain"
+	"github.com/joqd/go-russian/internal/core/domain"
 )
 
 type WordPersistent interface {

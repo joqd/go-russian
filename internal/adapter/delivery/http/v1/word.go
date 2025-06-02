@@ -5,12 +5,12 @@ import (
 	"net/http"
 
 	"github.com/go-playground/validator/v10"
-	"github.com/joqd/ruskee/internal/adapter/delivery/http/mapper"
-	"github.com/joqd/ruskee/internal/adapter/delivery/http/request"
-	"github.com/joqd/ruskee/internal/adapter/delivery/http/response"
-	_ "github.com/joqd/ruskee/internal/adapter/delivery/http/response/wrapper"
-	"github.com/joqd/ruskee/internal/core/domain"
-	"github.com/joqd/ruskee/internal/core/port"
+	"github.com/joqd/go-russian/internal/adapter/delivery/http/mapper"
+	"github.com/joqd/go-russian/internal/adapter/delivery/http/request"
+	"github.com/joqd/go-russian/internal/adapter/delivery/http/response"
+	_ "github.com/joqd/go-russian/internal/adapter/delivery/http/response/wrapper"
+	"github.com/joqd/go-russian/internal/core/domain"
+	"github.com/joqd/go-russian/internal/core/port"
 
 	"github.com/gin-gonic/gin"
 )
