@@ -75,6 +75,44 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/v1/words/{bare}": {
+            "get": {
+                "description": "Retrieve a word from the database using its Bare (raw word)",
+                "tags": [
+                    "words"
+                ],
+                "summary": "Get a word by Bare",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Raw Word",
+                        "name": "bare",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/wrapper.RetrievedWordWrapper"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/wrapper.ErrorNotFoundWrapper"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/wrapper.ErrorInternalServerWrapper"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/words/{id}": {
             "get": {
                 "description": "Retrieve a word from the database using its ID",
@@ -298,8 +336,8 @@ var SwaggerInfo = &swag.Spec{
 	Host:             "",
 	BasePath:         "",
 	Schemes:          []string{"http"},
-	Title:            "Ruskee",
-	Description:      "Russian dictionary for Persian speakers.",
+	Title:            "Go Russian",
+	Description:      "Russian Dictionary & Learning Platform.",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 	LeftDelim:        "{{",

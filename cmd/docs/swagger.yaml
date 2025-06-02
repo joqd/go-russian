@@ -126,11 +126,11 @@ info:
     email: rodia2559@example.com
     name: Abolfazl Shahbazi
     url: https://github.com/joqd
-  description: Russian dictionary for Persian speakers.
+  description: Russian Dictionary & Learning Platform.
   license:
     name: MIT License
     url: https://opensource.org/licenses/MIT
-  title: Ruskee
+  title: Go Russian
   version: "1.0"
 paths:
   /api/v1/words:
@@ -165,6 +165,31 @@ paths:
           schema:
             $ref: '#/definitions/wrapper.ErrorInternalServerWrapper'
       summary: Create a word
+      tags:
+      - words
+  /api/v1/words/{bare}:
+    get:
+      description: Retrieve a word from the database using its Bare (raw word)
+      parameters:
+      - description: Raw Word
+        in: path
+        name: bare
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/wrapper.RetrievedWordWrapper'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/wrapper.ErrorNotFoundWrapper'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/wrapper.ErrorInternalServerWrapper'
+      summary: Get a word by Bare
       tags:
       - words
   /api/v1/words/{id}:
