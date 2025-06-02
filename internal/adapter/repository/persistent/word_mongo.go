@@ -63,3 +63,18 @@ func (w *wordPersistent) Create(ctx context.Context, word *domain.Word) (id stri
 
 	return oid.Hex(), nil
 }
+
+func (w *wordPersistent) GetByBare(ctx context.Context, bare string) (*domain.Word, error) {
+	var wordDocument model.WordDocument
+
+	filter := bson.D{{Key: "bare", Value: bare}}
+	if err := w.collection.FindOne(ctx, filter).Decode(&wordDocument); err != nil {
+		if err == mongo.ErrNoDocuments {
+			return nil, domain.ErrDataNotFound
+		}
+
+		return nil, err
+	}
+
+	return wordDocument.ToDomain(), nil
+}

@@ -12,7 +12,7 @@ func RegisterWordRouter(rg *gin.RouterGroup, usecase port.WordUsecase, xlog port
 	wordGroup := rg.Group("/words")
 
 	{
-		wordGroup.GET("/:id", wordHandler.GetByID)
+		wordGroup.GET("/:query", wordHandler.Get)
 		wordGroup.POST("/", wordHandler.Create)
 	}
 }

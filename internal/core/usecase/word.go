@@ -47,3 +47,16 @@ func (w *wordUsecase) Create(ctx context.Context, word *domain.Word) (*domain.Wo
 
 	return word, nil
 }
+
+func (w *wordUsecase) GetByBare(ctx context.Context, bare string) (*domain.Word, error) {
+	word, err := w.persistent.GetByBare(ctx, bare)
+	if err != nil {
+		return nil, err
+	}
+
+	if word.Disable {
+		return nil, domain.ErrDataNotFound
+	}
+
+	return word, nil
+}
