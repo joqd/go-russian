@@ -111,6 +111,42 @@ const docTemplate = `{
                         }
                     }
                 }
+            },
+            "delete": {
+                "description": "Delete a word from the database using its Bare (raw word)",
+                "tags": [
+                    "words"
+                ],
+                "summary": "Delete a word",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Raw Word",
+                        "name": "bare",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/wrapper.DeletedWordWrapper"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/wrapper.ErrorNotFoundWrapper"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/wrapper.ErrorInternalServerWrapper"
+                        }
+                    }
+                }
             }
         },
         "/api/v1/words/{id}": {
@@ -140,6 +176,42 @@ const docTemplate = `{
                         "description": "Bad Request",
                         "schema": {
                             "$ref": "#/definitions/wrapper.ErrorInvalidObjectIdWrapper"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/wrapper.ErrorNotFoundWrapper"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/wrapper.ErrorInternalServerWrapper"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete a word from the database using its ID",
+                "tags": [
+                    "words"
+                ],
+                "summary": "Delete a word",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Word ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/wrapper.DeletedWordWrapper"
                         }
                     },
                     "404": {
@@ -205,6 +277,19 @@ const docTemplate = `{
                 }
             }
         },
+        "response.DeletedWord": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "example": "6835a2db5a859aff5197007a"
+                },
+                "bare": {
+                    "type": "string",
+                    "example": "весь"
+                }
+            }
+        },
         "response.RetrievedWord": {
             "type": "object",
             "properties": {
@@ -227,6 +312,18 @@ const docTemplate = `{
                 "type": {
                     "type": "string",
                     "example": "noun"
+                }
+            }
+        },
+        "wrapper.DeletedWordWrapper": {
+            "type": "object",
+            "properties": {
+                "ok": {
+                    "type": "boolean",
+                    "example": true
+                },
+                "result": {
+                    "$ref": "#/definitions/response.DeletedWord"
                 }
             }
         },
