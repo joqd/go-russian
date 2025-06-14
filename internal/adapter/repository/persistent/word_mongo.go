@@ -3,11 +3,11 @@ package persistent
 import (
 	"context"
 
-	"github.com/joqd/go-russian/internal/adapter/repository/mapper"
-	"github.com/joqd/go-russian/internal/adapter/repository/model"
-	"github.com/joqd/go-russian/internal/core/domain"
-	"github.com/joqd/go-russian/internal/core/port"
-	"github.com/joqd/go-russian/pkg/mongodb"
+	"github.com/joqd/slovo/internal/adapter/repository/mapper"
+	"github.com/joqd/slovo/internal/adapter/repository/model"
+	"github.com/joqd/slovo/internal/core/domain"
+	"github.com/joqd/slovo/internal/core/port"
+	"github.com/joqd/slovo/pkg/mongodb"
 
 	"go.mongodb.org/mongo-driver/v2/bson"
 	"go.mongodb.org/mongo-driver/v2/mongo"

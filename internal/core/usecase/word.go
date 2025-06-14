@@ -3,8 +3,8 @@ package usecase
 import (
 	"context"
 
-	"github.com/joqd/go-russian/internal/core/domain"
-	"github.com/joqd/go-russian/internal/core/port"
+	"github.com/joqd/slovo/internal/core/domain"
+	"github.com/joqd/slovo/internal/core/port"
 )
 
 type wordUsecase struct {

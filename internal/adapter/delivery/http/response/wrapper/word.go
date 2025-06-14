@@ -1,6 +1,6 @@
 package wrapper
 
-import "github.com/joqd/go-russian/internal/adapter/delivery/http/response"
+import "github.com/joqd/slovo/internal/adapter/delivery/http/response"
 
 type RetrievedWordWrapper struct {
 	Ok     bool                   `json:"ok" example:"true"`

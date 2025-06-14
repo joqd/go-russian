@@ -5,12 +5,12 @@ import (
 	"net/http"
 
 	"github.com/go-playground/validator/v10"
-	"github.com/joqd/go-russian/internal/adapter/delivery/http/mapper"
-	"github.com/joqd/go-russian/internal/adapter/delivery/http/request"
-	"github.com/joqd/go-russian/internal/adapter/delivery/http/response"
-	_ "github.com/joqd/go-russian/internal/adapter/delivery/http/response/wrapper"
-	"github.com/joqd/go-russian/internal/core/domain"
-	"github.com/joqd/go-russian/internal/core/port"
+	"github.com/joqd/slovo/internal/adapter/delivery/http/mapper"
+	"github.com/joqd/slovo/internal/adapter/delivery/http/request"
+	"github.com/joqd/slovo/internal/adapter/delivery/http/response"
+	_ "github.com/joqd/slovo/internal/adapter/delivery/http/response/wrapper"
+	"github.com/joqd/slovo/internal/core/domain"
+	"github.com/joqd/slovo/internal/core/port"
 	"go.mongodb.org/mongo-driver/v2/bson"
 
 	"github.com/gin-gonic/gin"

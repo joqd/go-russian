@@ -6,15 +6,15 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/joqd/go-russian/internal/adapter/config"
-	"github.com/joqd/go-russian/internal/adapter/delivery/http"
-	"github.com/joqd/go-russian/internal/adapter/repository/cache"
-	"github.com/joqd/go-russian/internal/adapter/repository/persistent"
-	"github.com/joqd/go-russian/internal/core/usecase"
-	"github.com/joqd/go-russian/pkg/httpserver"
-	"github.com/joqd/go-russian/pkg/logger"
-	"github.com/joqd/go-russian/pkg/mongodb"
-	"github.com/joqd/go-russian/pkg/redisdb"
+	"github.com/joqd/slovo/internal/adapter/config"
+	"github.com/joqd/slovo/internal/adapter/delivery/http"
+	"github.com/joqd/slovo/internal/adapter/repository/cache"
+	"github.com/joqd/slovo/internal/adapter/repository/persistent"
+	"github.com/joqd/slovo/internal/core/usecase"
+	"github.com/joqd/slovo/pkg/httpserver"
+	"github.com/joqd/slovo/pkg/logger"
+	"github.com/joqd/slovo/pkg/mongodb"
+	"github.com/joqd/slovo/pkg/redisdb"
 )
 
 func Run(conf *config.Config) {

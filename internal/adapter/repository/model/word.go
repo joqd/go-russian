@@ -1,7 +1,7 @@
 package model
 
 import (
-	"github.com/joqd/go-russian/internal/core/domain"
+	"github.com/joqd/slovo/internal/core/domain"
 
 	"go.mongodb.org/mongo-driver/v2/bson"
 )

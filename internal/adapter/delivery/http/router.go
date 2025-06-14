@@ -1,10 +1,10 @@
 package http
 
 import (
-	docs "github.com/joqd/go-russian/cmd/docs"
-	"github.com/joqd/go-russian/internal/adapter/config"
-	v1 "github.com/joqd/go-russian/internal/adapter/delivery/http/v1"
-	"github.com/joqd/go-russian/internal/core/port"
+	docs "github.com/joqd/slovo/cmd/docs"
+	"github.com/joqd/slovo/internal/adapter/config"
+	v1 "github.com/joqd/slovo/internal/adapter/delivery/http/v1"
+	"github.com/joqd/slovo/internal/core/port"
 
 	"github.com/gin-gonic/gin"
 	swaggerfiles "github.com/swaggo/files"
