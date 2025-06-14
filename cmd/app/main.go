@@ -3,8 +3,8 @@ package main
 import (
 	"log"
 
-	"github.com/joqd/go-russian/internal/adapter/bootstrap"
-	"github.com/joqd/go-russian/internal/adapter/config"
+	"github.com/joqd/slovo/internal/adapter/bootstrap"
+	"github.com/joqd/slovo/internal/adapter/config"
 )
 
 // @title           Go Russian

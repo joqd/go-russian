@@ -1,8 +1,8 @@
 package mapper
 
 import (
-	"github.com/joqd/go-russian/internal/adapter/repository/model"
-	"github.com/joqd/go-russian/internal/core/domain"
+	"github.com/joqd/slovo/internal/adapter/repository/model"
+	"github.com/joqd/slovo/internal/core/domain"
 )
 
 func WordToWordPayload(word *domain.Word) *model.WordPayload {

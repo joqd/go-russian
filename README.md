@@ -1,2 +1,2 @@
-# go-russian
+# slovo
 Russian Dictionary & Learning Platform

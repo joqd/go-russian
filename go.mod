@@ -1,4 +1,4 @@
-module github.com/joqd/go-russian
+module github.com/joqd/slovo
 
 go 1.24.2
 
