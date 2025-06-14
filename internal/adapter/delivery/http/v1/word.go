@@ -40,6 +40,15 @@ func (w *wordHandler) Get(c *gin.Context) {
 	}
 }
 
+func (w *wordHandler) Delete(c *gin.Context) {
+	query := c.Param("query")
+	if _, err := bson.ObjectIDFromHex(query); err == nil {
+		w.DeleteByID(c)
+	} else {
+		w.DeleteByBare(c)
+	}
+}
+
 // @Summary      Get a word by ID
 // @Description  Retrieve a word from the database using its ID
 // @Tags         words
@@ -104,7 +113,7 @@ func (w *wordHandler) Create(c *gin.Context) {
 	}
 
 	retrievedWord := mapper.WordToRetrievedWord(word)
-	response.SuccessResponse(c, http.StatusOK, retrievedWord)
+	response.SuccessResponse(c, http.StatusCreated, retrievedWord)
 }
 
 // @Summary      Get a word by Bare
@@ -131,4 +140,54 @@ func (w *wordHandler) GetByBare(c *gin.Context) {
 
 	retrievedWord := mapper.WordToRetrievedWord(word)
 	response.SuccessResponse(c, http.StatusOK, retrievedWord)
+}
+
+// @Summary      Delete a word
+// @Description  Delete a word from the database using its ID
+// @Tags         words
+// @Param        id   path      string  true  "Word ID"
+// @Success      200  {object}  wrapper.DeletedWordWrapper
+// @Failure      404  {object}  wrapper.ErrorNotFoundWrapper
+// @Failure      500  {object}  wrapper.ErrorInternalServerWrapper
+// @Router       /api/v1/words/{id} [delete]
+func (w *wordHandler) DeleteByID(c *gin.Context) {
+	id := c.Param("query")
+
+	if err := w.usecase.DeleteByID(c.Request.Context(), id); err != nil {
+		if errors.Is(err, domain.ErrDataNotFound) {
+			response.ErrorResponse(c, http.StatusNotFound, response.DescDataNotFound)
+			return
+		}
+
+		response.ErrorResponse(c, http.StatusInternalServerError, response.DescInternalServerError)
+		return
+	}
+
+	deletedWord := response.DeletedWord{ID: id}
+	response.SuccessResponse(c, http.StatusOK, deletedWord)
+}
+
+// @Summary      Delete a word
+// @Description  Delete a word from the database using its Bare (raw word)
+// @Tags         words
+// @Param        bare   path      string  true  "Raw Word"
+// @Success      200  {object}  wrapper.DeletedWordWrapper
+// @Failure      404  {object}  wrapper.ErrorNotFoundWrapper
+// @Failure      500  {object}  wrapper.ErrorInternalServerWrapper
+// @Router       /api/v1/words/{bare} [delete]
+func (w *wordHandler) DeleteByBare(c *gin.Context) {
+	bare := c.Param("query")
+
+	if err := w.usecase.DeleteByBare(c.Request.Context(), bare); err != nil {
+		if errors.Is(err, domain.ErrDataNotFound) {
+			response.ErrorResponse(c, http.StatusNotFound, response.DescDataNotFound)
+			return
+		}
+
+		response.ErrorResponse(c, http.StatusInternalServerError, response.DescInternalServerError)
+		return
+	}
+
+	deletedWord := response.DeletedWord{Bare: bare}
+	response.SuccessResponse(c, http.StatusOK, deletedWord)
 }

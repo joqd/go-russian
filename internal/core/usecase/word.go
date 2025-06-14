@@ -44,6 +44,7 @@ func (w *wordUsecase) Create(ctx context.Context, word *domain.Word) (*domain.Wo
 	}
 
 	word.ID = oid
+	w.cache.Set(ctx, word)
 
 	return word, nil
 }
@@ -59,4 +60,24 @@ func (w *wordUsecase) GetByBare(ctx context.Context, bare string) (*domain.Word,
 	}
 
 	return word, nil
+}
+
+func (w *wordUsecase) DeleteByID(ctx context.Context, id string) error {
+	err := w.persistent.DeleteByID(ctx, id)
+	if err != nil {
+		return err
+	}
+
+	w.cache.Del(ctx, id)
+
+	return nil
+}
+
+func (w *wordUsecase) DeleteByBare(ctx context.Context, bare string) error {
+	err := w.persistent.DeleteByBare(ctx, bare)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

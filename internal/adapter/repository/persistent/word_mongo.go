@@ -78,3 +78,36 @@ func (w *wordPersistent) GetByBare(ctx context.Context, bare string) (*domain.Wo
 
 	return wordDocument.ToDomain(), nil
 }
+
+func (w *wordPersistent) DeleteByID(ctx context.Context, id string) error {
+	objectID, err := bson.ObjectIDFromHex(id)
+	if err != nil {
+		return domain.ErrInvalidObjectID
+	}
+
+	filter := bson.D{{Key: "_id", Value: objectID}}
+	result, err := w.collection.DeleteOne(ctx, filter)
+	if err != nil {
+		return err
+	}
+
+	if result.DeletedCount == 0 {
+		return domain.ErrDataNotFound
+	}
+
+	return nil
+}
+
+func (w *wordPersistent) DeleteByBare(ctx context.Context, bare string) error {
+	filter := bson.D{{Key: "bare", Value: bare}}
+	result, err := w.collection.DeleteOne(ctx, filter)
+	if err != nil {
+		return err
+	}
+
+	if result.DeletedCount == 0 {
+		return domain.ErrDataNotFound
+	}
+
+	return nil
+}

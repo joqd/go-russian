@@ -7,3 +7,8 @@ type RetrievedWord struct {
 	Type     *string `json:"type,omitempty" example:"noun"`
 	Level    *string `json:"level,omitempty" example:"B1"`
 }
+
+type DeletedWord struct {
+	ID   string `json:"_id,omitempty" example:"6835a2db5a859aff5197007a"`
+	Bare string `json:"bare,omitempty" example:"весь"`
+}

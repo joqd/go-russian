@@ -14,5 +14,6 @@ func RegisterWordRouter(rg *gin.RouterGroup, usecase port.WordUsecase, xlog port
 	{
 		wordGroup.GET("/:query", wordHandler.Get)
 		wordGroup.POST("/", wordHandler.Create)
+		wordGroup.DELETE("/:query", wordHandler.Delete)
 	}
 }

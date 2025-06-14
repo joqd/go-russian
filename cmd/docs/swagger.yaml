@@ -35,6 +35,15 @@ definitions:
     - accented
     - bare
     type: object
+  response.DeletedWord:
+    properties:
+      _id:
+        example: 6835a2db5a859aff5197007a
+        type: string
+      bare:
+        example: весь
+        type: string
+    type: object
   response.RetrievedWord:
     properties:
       _id:
@@ -52,6 +61,14 @@ definitions:
       type:
         example: noun
         type: string
+    type: object
+  wrapper.DeletedWordWrapper:
+    properties:
+      ok:
+        example: true
+        type: boolean
+      result:
+        $ref: '#/definitions/response.DeletedWord'
     type: object
   wrapper.ErrorBadRequestWrapper:
     properties:
@@ -168,6 +185,30 @@ paths:
       tags:
       - words
   /api/v1/words/{bare}:
+    delete:
+      description: Delete a word from the database using its Bare (raw word)
+      parameters:
+      - description: Raw Word
+        in: path
+        name: bare
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/wrapper.DeletedWordWrapper'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/wrapper.ErrorNotFoundWrapper'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/wrapper.ErrorInternalServerWrapper'
+      summary: Delete a word
+      tags:
+      - words
     get:
       description: Retrieve a word from the database using its Bare (raw word)
       parameters:
@@ -193,6 +234,30 @@ paths:
       tags:
       - words
   /api/v1/words/{id}:
+    delete:
+      description: Delete a word from the database using its ID
+      parameters:
+      - description: Word ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/wrapper.DeletedWordWrapper'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/wrapper.ErrorNotFoundWrapper'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/wrapper.ErrorInternalServerWrapper'
+      summary: Delete a word
+      tags:
+      - words
     get:
       description: Retrieve a word from the database using its ID
       parameters:
